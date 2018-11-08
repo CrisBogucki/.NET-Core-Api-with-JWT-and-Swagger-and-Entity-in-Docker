@@ -39,6 +39,7 @@
       <e p="LICENSE" t="Include" />
       <e p="Models" t="Include">
         <e p="Home" t="Include">
+          <e p="ContactModel.cs" t="Include" />
           <e p="InfoModel.cs" t="Include" />
         </e>
       </e>
@@ -64,6 +65,17 @@
         <e p="IUserRepository.cs" t="Include" />
       </e>
       <e p="Startup.cs" t="Include" />
+      <e p="Views" t="Include">
+        <e p="_ViewImports.cshtml" t="Include" />
+        <e p="_ViewStart.cshtml" t="Include" />
+        <e p="Home" t="Include">
+          <e p="Contact.cshtml" t="Include" />
+          <e p="Info.cshtml" t="Include" />
+        </e>
+        <e p="shared" t="Include">
+          <e p="_Layout.cshtml" t="Include" />
+        </e>
+      </e>
       <e p="WebApi.csproj" t="IncludeRecursive" />
     </e>
   </component>
