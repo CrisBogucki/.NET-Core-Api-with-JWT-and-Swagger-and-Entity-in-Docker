@@ -4,27 +4,29 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using WebApi.Helpers;
-using WebApi.Services;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using WebApi.Repository;
 
 namespace WebApi
 {
   public class Startup
     {
+        private IConfiguration Configuration { get; }
+        
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
+        
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
             services.AddMvc();
+            services.AddMediatR();
 
             // configure strongly typed settings objects
             var appSettingsSection = Configuration.GetSection("AppSettings");
@@ -51,8 +53,11 @@ namespace WebApi
                 };
             });
 
-            // configure DI for application services
-            services.AddScoped<IUserService, UserService>();
+            // configure DI for application services            
+            // repositories
+            services.AddScoped<IUserRepository, UserRepository>();
+            
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
