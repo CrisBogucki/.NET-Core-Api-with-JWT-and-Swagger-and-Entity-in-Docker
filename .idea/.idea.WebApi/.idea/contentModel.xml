@@ -9,7 +9,10 @@
       <e p="appsettings.json" t="Include" />
       <e p="Bin" t="ExcludeRecursive" />
       <e p="Controllers" t="Include">
-        <e p="AccountController.cs" t="Include" />
+        <e p="HomeController.cs" t="Include" />
+        <e p="v1" t="Include">
+          <e p="AccountController.cs" t="Include" />
+        </e>
       </e>
       <e p="Entities" t="Include">
         <e p="User.cs" t="Include" />
@@ -34,6 +37,11 @@
         <e p="HttpTools.cs" t="Include" />
       </e>
       <e p="LICENSE" t="Include" />
+      <e p="Models" t="Include">
+        <e p="Home" t="Include">
+          <e p="InfoModel.cs" t="Include" />
+        </e>
+      </e>
       <e p="obj" t="ExcludeRecursive">
         <e p="Debug" t="Include">
           <e p="netcoreapp2.1" t="Include">
@@ -42,6 +50,11 @@
         </e>
       </e>
       <e p="packages" t="ExcludeRecursive" />
+      <e p="Pages" t="Include">
+        <e p="Home" t="Include">
+          <e p="Info.cshtml" t="Include" />
+        </e>
+      </e>
       <e p="Program.cs" t="Include" />
       <e p="README.md" t="Include" />
       <e p="Repository" t="Include">

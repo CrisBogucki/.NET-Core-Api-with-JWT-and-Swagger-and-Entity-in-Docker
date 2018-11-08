@@ -14,14 +14,13 @@ using WebApi.Repository;
 
 namespace WebApi.Events.Query.Account
 {
-    public class LoginQueryHandler : IRequestHandler<LoginQuery, LoginRequest>
+    public class LoginQueryHandler : INotification, IRequestHandler<LoginQuery, LoginRequest>
     {
-        private readonly AppSettings _appSettings;
+        //private readonly AppSettings _appSettings;
         private readonly IUserRepository _userRepository;
 
-        public LoginQueryHandler(AppSettings appSettings, IUserRepository userRepository)
+        public LoginQueryHandler(IUserRepository userRepository)
         {
-            _appSettings = appSettings;
             _userRepository = userRepository;
         }
 
@@ -32,22 +31,22 @@ namespace WebApi.Events.Query.Account
                 return null;
 
             LoginRequest result = new LoginRequest {FirstName = user.FirstName, LastName = user.LastName};
-
-            JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
-            byte[] key = Encoding.ASCII.GetBytes(_appSettings.Secret);
-            SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new Claim[]
-                {
-                    new Claim(ClaimTypes.Name, user.Id.ToString())
-                }),
-                Expires = DateTime.UtcNow.AddMinutes(_appSettings.SessionTime),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
-                    SecurityAlgorithms.HmacSha256Signature)
-            };
-            
-            SecurityToken token = tokenHandler.CreateToken(tokenDescriptor);  
-            result.Token = tokenHandler.WriteToken(token);
+//
+//            JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+//            byte[] key = Encoding.ASCII.GetBytes(_appSettings.Secret);
+//            SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor
+//            {
+//                Subject = new ClaimsIdentity(new Claim[]
+//                {
+//                    new Claim(ClaimTypes.Name, user.Id.ToString())
+//                }),
+//                Expires = DateTime.UtcNow.AddMinutes(_appSettings.SessionTime),
+//                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
+//                    SecurityAlgorithms.HmacSha256Signature)
+//            };
+//            
+//            SecurityToken token = tokenHandler.CreateToken(tokenDescriptor);  
+//            result.Token = tokenHandler.WriteToken(token);
             
             return result;
         }

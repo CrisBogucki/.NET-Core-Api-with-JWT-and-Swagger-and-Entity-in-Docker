@@ -14,7 +14,7 @@ namespace WebApi.Repository
         
         public IEnumerable<User> GetAll()
         {
-            return _users.Select(x => { x.Password = null; return x; });
+            return _users;
         }
     }
 }

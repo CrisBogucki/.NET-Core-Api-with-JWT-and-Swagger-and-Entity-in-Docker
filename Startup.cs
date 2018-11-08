@@ -8,6 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Swashbuckle.AspNetCore.Swagger;
 using WebApi.Repository;
 
 namespace WebApi
@@ -27,6 +28,31 @@ namespace WebApi
             services.AddCors();
             services.AddMvc();
             services.AddMediatR();
+            
+            
+            services.AddSwaggerGen(options =>
+            {
+                options.DescribeAllEnumsAsStrings();
+                options.DescribeStringEnumsInCamelCase();
+                options.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info
+                {
+                    Title = "SLPS API",
+                    Version = "v1.01.001",
+                    Description = "Interfejs programistyczny Systemu Losowego Przydziału Spraw sądowych",
+                    Contact = new Contact()
+                    {
+                        Email = "test@test.com",
+                        Name = "Produkcja",
+                        Url = "https://www.google.pl"
+                    }, License = new License()
+                    {
+                        Name = "dupa",
+                        Url = "Dupa 1"
+                    }
+                });
+            });
+
+            services.AddMvc();
 
             // configure strongly typed settings objects
             var appSettingsSection = Configuration.GetSection("AppSettings");
@@ -66,6 +92,12 @@ namespace WebApi
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
+            app.UseSwagger()
+                .UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "HTTP API V1");
+                });
+            
             // global cors policy
             app.UseCors(x => x
                 .AllowAnyOrigin()
@@ -74,6 +106,7 @@ namespace WebApi
                 .AllowCredentials());
 
             app.UseAuthentication();
+            app.UseMvcWithDefaultRoute();
             
             app.UseMvc();
         }

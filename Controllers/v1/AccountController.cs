@@ -12,8 +12,8 @@ namespace WebApi.Controllers
 {   
     [Authorize]
     [ApiController]
-    [Route("[controller]")]
-    public class AccountController : ControllerBase
+    [Route("api/v1/account")]
+    public partial class AccountController : Controller
     {
         private readonly IMediator _mediator;
 
@@ -24,7 +24,7 @@ namespace WebApi.Controllers
 
 
         [AllowAnonymous]
-        [HttpPost("authenticate")]
+        [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] User userParam)
         {
             var user = await _mediator.Send(new LoginQuery() { Login = userParam.Username, Password = userParam.Password });
@@ -35,8 +35,7 @@ namespace WebApi.Controllers
             return Ok(user);
         }
 
-        [AllowAnonymous]
-        [HttpPost("authenticate")]
+        [HttpPost("logout")]
         public async Task<IActionResult> Logout()
         {
             var token = await HttpTools.GetTokenRequest(HttpContext);
