@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System;
+using System.IO;
+using System.Reflection;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -41,15 +44,21 @@ namespace WebApi
                     Description = "Interfejs programistyczny Systemu Losowego Przydziału Spraw sądowych",
                     Contact = new Contact()
                     {
-                        Email = "test@test.com",
-                        Name = "Produkcja",
-                        Url = "https://www.google.pl"
+                  
+                        Name = "Witryna produktu",
+                        Url = "/home/info"
                     }, License = new License()
                     {
-                        Name = "dupa",
-                        Url = "Dupa 1"
+                        Name = "Pomoc",
+                        Url = "/home/con"
                     }
                 });
+                
+                // Set the comments path for the Swagger JSON and UI.
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                options.IncludeXmlComments(xmlPath);
+                
             });
 
             services.AddMvc();
@@ -82,6 +91,8 @@ namespace WebApi
             // configure DI for application services            
             // repositories
             services.AddScoped<IUserRepository, UserRepository>();
+            
+            
             
             
         }

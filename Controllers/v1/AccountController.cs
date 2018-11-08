@@ -10,6 +10,7 @@ using WebApi.Helpers;
 
 namespace WebApi.Controllers
 {   
+    
     [Authorize]
     [ApiController]
     [Route("api/v1/account")]
@@ -21,7 +22,6 @@ namespace WebApi.Controllers
         {
             _mediator = mediator;
         }
-
 
         [AllowAnonymous]
         [HttpPost("login")]

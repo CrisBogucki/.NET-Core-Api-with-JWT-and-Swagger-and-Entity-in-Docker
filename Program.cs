@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace WebApi
 {
+#pragma warning disable CS1591
     public class Program
     {
         public static void Main(string[] args)
@@ -17,4 +18,5 @@ namespace WebApi
                 .UseUrls("http://localhost:4000")
                 .Build();
     }
+#pragma warning restore CS1591
 }
