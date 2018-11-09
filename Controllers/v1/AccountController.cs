@@ -1,16 +1,14 @@
 ﻿using System.Threading.Tasks;
 using MediatR;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WebApi.Entities;
 using WebApi.Events.Command.Account;
 using WebApi.Events.Query.Account;
 using WebApi.Helpers;
 
-namespace WebApi.Controllers
+namespace WebApi.Controllers.v1
 {   
-    
     [Authorize]
     [ApiController]
     [Route("api/v1/account")]
@@ -43,5 +41,6 @@ namespace WebApi.Controllers
             
             return Ok();
         }
+        
     }
 }

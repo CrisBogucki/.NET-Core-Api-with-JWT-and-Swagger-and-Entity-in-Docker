@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Reflection;
 using Microsoft.AspNetCore.Builder;
@@ -12,6 +13,7 @@ using System.Text;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Swashbuckle.AspNetCore.Swagger;
+using WebApi.Middleware;
 using WebApi.Repository;
 
 namespace WebApi
@@ -91,10 +93,10 @@ namespace WebApi
             // configure DI for application services            
             // repositories
             services.AddScoped<IUserRepository, UserRepository>();
-            
-            
-            
-            
+            services.AddScoped<IJwtSecurityToken, Middleware.Implementation.JwtSecurityToken>();
+
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
